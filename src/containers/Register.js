@@ -7,20 +7,35 @@ import { useHistory } from "react-router-dom";
 
 export default function Register() {
     const history = useHistory();
+
+    const [user, setUser] = useState({
+        name: "",
+        email: "",
+        password: "",
+        repassword: ""
+    });
+    function handleChange(e) {
+        const { name, value } = e.target;
+        console.log(name, value);
+        setUser({
+            ...user,
+            [name]: value
+        });
+    }
     return (
         <div className="Login">
             <Form>
                 <Form.Group size="lg" controlId="name">
-                    <Form.Label>Name</Form.Label>
-                    <Form.Control autoFocus type="name" />
+                    <Form.Control autoFocus type="name" value={user.name} name="name" onChange={handleChange} placeholder="Name" />
                 </Form.Group>
                 <Form.Group size="lg" controlId="email">
-                    <Form.Label>Email</Form.Label>
-                    <Form.Control autoFocus type="email" />
+                    <Form.Control autoFocus type="email" value={user.email} name="email" onChange={handleChange} placeholder="Email" />
                 </Form.Group>
                 <Form.Group size="lg" controlId="password">
-                    <Form.Label>Password</Form.Label>
-                    <Form.Control type="password" />
+                    <Form.Control type="password" value={user.password} name="password" onChange={handleChange} placeholder="Password" />
+                </Form.Group>
+                <Form.Group size="lg" controlId="repassword">
+                    <Form.Control type="password" value={user.repassword} name="repassword" onChange={handleChange} placeholder="Re-Password" />
                 </Form.Group>
                 <Button block size="lg" type="submit" >
                     Register

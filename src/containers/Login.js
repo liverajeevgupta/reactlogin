@@ -8,19 +8,31 @@ import { useHistory } from 'react-router-dom';
 export default function Login() {
     const history = useHistory();
 
+    const [user, setUser] = useState({
+        email: "",
+        password: "",
+    });
+    function handleChange(e) {
+        const { name, value } = e.target;
+        console.log(name, value);
+        setUser({
+            ...user,
+            [name]: value
+        });
+    }
     return (
         <div className="Login">
             <Form>
                 <Form.Group size="lg" controlId="email">
                     <Form.Label>Email</Form.Label>
-                    <Form.Control autoFocus type="email"
+                    <Form.Control autoFocus type="email" value={user.email} name="email" onChange={handleChange}
                     />
                 </Form.Group>
                 <Form.Group size="lg" controlId="password" >
                     <Form.Label>Password</Form.Label>
                     <Form.Control
                         type="password"
-
+                        value={user.password} name="password" onChange={handleChange}
                     />
                 </Form.Group>
                 <Button block size="lg" type="submit">
