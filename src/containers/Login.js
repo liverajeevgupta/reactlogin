@@ -4,6 +4,7 @@ import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import "./Login.css";
 import { useHistory } from 'react-router-dom';
+import axios from 'axios';
 
 export default function Login() {
     const history = useHistory();
@@ -20,9 +21,20 @@ export default function Login() {
             [name]: value
         });
     }
+
+    function login() {
+        const { email, password } = user;
+        if (email && password) {
+            axios.post("http://localhost:9002/login", user)
+            .then ( res => console.log(res));
+        } else {
+            alert('Invalid posted');
+        }
+    }
+
     return (
         <div className="Login">
-            <Form>
+           
                 <Form.Group size="lg" controlId="email">
                     <Form.Label>Email</Form.Label>
                     <Form.Control autoFocus type="email" value={user.email} name="email" onChange={handleChange}
@@ -35,14 +47,14 @@ export default function Login() {
                         value={user.password} name="password" onChange={handleChange}
                     />
                 </Form.Group>
-                <Button block size="lg" type="submit">
+                <Button block size="lg" type="submit" onClick={login}>
                     Login
                 </Button>
                 <div>OR</div>
                 <Button block size="lg" type="submit" onClick={() => history.push('/register')}>
                     Register
                 </Button>
-            </Form>
+            
         </div>
     );
 }
